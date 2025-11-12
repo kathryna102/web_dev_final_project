@@ -1,0 +1,1 @@
+Welcome to our CSCI 331 Final Website! Our idea was to create a lifestyle website that includes a todo-list implementing the CRUD operations of databases. The database is where to-do list items will be stored. 
