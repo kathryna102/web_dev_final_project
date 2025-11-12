@@ -1,0 +1,19 @@
+#nav img{
+    width: 30 px;
+    height: 30 px;
+}
+
+.container {
+    display: flex;
+}
+
+.left{
+    border-radius: 1px grey;
+    flex: 1
+    
+}
+
+.right {
+    border-radius: 1px grey;
+    flex: 2
+}
