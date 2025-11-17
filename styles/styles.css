@@ -17,3 +17,27 @@
     border-radius: 1px grey;
     flex: 2
 }
+
+img {
+    width: 30px;
+    height: 30px;
+}
+
+.menu {
+    width: 40%;
+    border: black solid 1px;
+    border-radius: 30px;
+}
+
+.mainbody {
+    width: 60%;
+    border: black solid 1px;
+    border-radius: 30px;
+}
+
+#todo {
+    display: flex;
+    width: 40%;
+    border: black solid 1px;
+    border-radius: 30px;
+}
