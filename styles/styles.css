@@ -1,3 +1,29 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+}
+
+#header {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding-bottom: 10px;
+}
+
+#nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-direction: row;
+}
+
+.nav-element {
+    background-color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
 #nav img{
     width: 10 px;
     height: 10 px;
@@ -40,4 +66,32 @@ img {
     width: 40%;
     border: black solid 1px;
     border-radius: 30px;
+}
+
+.weather-bar {
+    width: fit-content;
+    margin-left: auto;           /* pushes it to the right */
+    background-color: #f0f0f0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.weather-bar h2 {
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.weather-info {
+    display: flex;               /* put all items in one row */
+    gap: 10px;                   /* space between them */
+}
+
+.weather-item {
+    background-color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
 }
