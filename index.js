@@ -1,28 +1,6 @@
 
-document.addEventListener('DOMContentLoaded', loadTasks); /*() => {
+document.addEventListener('DOMContentLoaded', loadTasks);
     
-    const input = document.getElementById("new-task");
-    const addButton = document.getElementById("add-task");
-
-    //Load existing items from backend
-    fetch("./php/get.php")
-        .then(response => {
-        if (!response.ok) throw new Error('Network response was not OK');
-        return response.json();
-        })
-        .then(data => {
-            if (!Array.isArray(data)) {
-                console.error('Unexpected response:', data);
-                return;
-            }
-            data.forEach(task => addTaskToDOM(input));
-        })
-        .catch(err => {
-            console.error('Failed to load tasks:', err);
-    });
-});
-*/
-
 function loadTasks() {
     fetch("php/get.php")
         .then(res => res.json())
@@ -67,12 +45,12 @@ document.getElementById("taskForm").addEventListener("add-task", function(e) {
 
 
 function toggleTask(id, current) {
-    fetch(`api/update.php?id=${id}&done=${current == 1 ? 0 : 1}`)
+    fetch(`php/update.php?id=${id}&done=${current == 1 ? 0 : 1}`)
         .then(() => loadTasks());
 }
 
 function deleteTask(id) {
-    fetch(`api/delete.php?id=${id}`)
+    fetch(`php/delete.php?id=${id}`)
         .then(() => loadTasks());
 }
 

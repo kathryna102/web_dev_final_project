@@ -1,7 +1,7 @@
 <?php 
 // Create
 //establishes the database connection
-include "../db.php";
+include "db.php";
 
 //prepare data for insertion by using SELECT and select all rows
 $name = $_POST['name'];

@@ -1,6 +1,6 @@
 <? 
 // Update
-include "../db.php";
+include "db.php";
 //use the get.php file to get the data from the database
 $id = $_GET['id'];
 $done = $_GET['done'];
