@@ -111,10 +111,11 @@ body {
 
 .todo-input {
     display: flex;
-    width: 40%;
+    width: 50%;
     border: black solid 1px;
-    border-radius: 30px;
+    border-radius: 20px;
     margin: 20px 0;
+    padding: 10px;
 }
 
 #new-task {

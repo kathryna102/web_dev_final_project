@@ -17,7 +17,7 @@ function loadTasks() {
                     Status: ${task.is_done == 1 ? "✔ Done" : "⏳ Pending"}<br>
 
                     <button onclick="toggleTask(${task.id}, ${task.is_done})">Toggle Status</button>
-                    <button onclick="deleteTask(${task.id})" style="color:red;">Delete</button>
+                    <button onclick="deleteTask(${task.id})" style="color:white;">Delete</button>
 
                 </p>
                 <hr>
