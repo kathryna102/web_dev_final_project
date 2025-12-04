@@ -6,7 +6,11 @@ include "db.php";
 
 //prepare data for insertion by using SELECT and select all rows
 $name = $_POST['name'];
-$category = $_POST['category'];
+if(isset($_POST['taskCategorySelect'])) {
+    $category = $_POST['taskCategorySelect'];
+} else {
+    $category = 'No category selected';
+}
 $due_date = $_POST['due_date'];
 
 if(!$name || !$category || !$due_date) {
