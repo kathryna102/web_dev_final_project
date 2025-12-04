@@ -12,5 +12,5 @@ You need to be a MSU student in order to access this project
   2. go to http://csci331vm.cs.montana.edu/~b44s676@student.montana.edu/web_dev_final_project in order to see it
 
 ## Contributors
-Mya Christine Steckler
+Mya Christine Steckler and
 Katie Harmon
