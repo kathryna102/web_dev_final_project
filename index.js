@@ -190,3 +190,163 @@ async function getQuotes() {
   }
 
   document.getElementById("getQuotesBtn").addEventListener("click", getQuotes);
+
+  
+let calendarDate = new Date();
+
+let API_HOLIDAYS = [];
+
+let TASKS = [];
+
+
+async function fetchTasksForCalendar() {
+    try {
+        const res = await fetch("php/get.php");
+        TASKS = await res.json();
+    } catch (err) {
+        console.error("Error loading tasks for calendar:", err);
+    }
+}
+
+async function loadHolidayAPI(year) {
+    try {
+        const res = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${year}/US`);
+        API_HOLIDAYS = await res.json();
+    } catch (err) {
+        console.error("Holiday API error:", err);
+        API_HOLIDAYS = []; // fallback
+    }
+}
+
+async function loadCalendar() {
+
+    console.log("Loading calendar…");
+    let TASKS = [];
+    try {
+        const res = await fetch("php/get.php");
+        TASKS = await res.json();
+    } catch (err) {
+        console.error("Task load error:", err);
+    }
+
+    const year = calendarDate.getFullYear();
+    await loadHolidayAPI(year);
+
+    const month = calendarDate.getMonth();
+    const today = new Date();
+
+    let monthYearEl = document.getElementById("month-year");
+
+    if (monthYearEl) {
+        monthYearEl.textContent = calendarDate.toLocaleString("default", {
+            month: "long",
+            year: "numeric"
+        });
+    }
+
+    let grid = document.getElementById("calendar-grid");
+
+    if (!grid) {
+        console.warn("calendar-grid NOT found in HTML → creating it automatically.");
+
+        grid = document.createElement("div");
+        grid.id = "calendar-grid";
+        grid.style.display = "grid";
+        grid.style.gridTemplateColumns = "repeat(7, 1fr)";
+        grid.style.gap = "10px";
+
+        const section = document.getElementById("calendar-section");
+        if (section) section.appendChild(grid);
+    }
+
+    grid.innerHTML = ""; 
+    const firstDay = new Date(year, month, 1).getDay();
+    const totalDays = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+        grid.appendChild(document.createElement("div"));
+    }
+
+    for (let day = 1; day <= totalDays; day++) {
+        const cell = document.createElement("div");
+        cell.classList.add("day");
+
+        const label = document.createElement("span");
+        label.textContent = day;
+        cell.appendChild(label);
+
+        if (
+            day === today.getDate() &&
+            month === today.getMonth() &&
+            year === today.getFullYear()
+        ) {
+            cell.classList.add("today");
+        }
+
+        const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+        const holidayObj = API_HOLIDAYS.find(h => h.date === dateKey);
+
+        if (holidayObj) {
+            cell.classList.add("holiday");
+
+            const holidayLabel = document.createElement("span");
+            holidayLabel.classList.add("holiday-name");
+            holidayLabel.textContent = holidayObj.localName;
+            cell.appendChild(holidayLabel);
+        }
+
+        const tasksToday = TASKS.filter(t => t.due_date === dateKey);
+
+        if (tasksToday.length > 0) {
+            const list = document.createElement("div");
+            list.classList.add("task-list");
+
+            tasksToday.forEach(task => {
+                const tag = document.createElement("div");
+                tag.classList.add("task-tag");
+                tag.textContent = task.name;
+                list.appendChild(tag);
+            });
+
+            cell.appendChild(list);
+        }
+
+        cell.addEventListener("click", () => {
+            let msg = `📅 ${dateKey}\n\n`;
+
+            if (holidayObj) msg += `🎉 Holiday: ${holidayObj.localName}\n\n`;
+
+            if (tasksToday.length > 0) {
+                msg += "📝 Tasks:\n" +
+                       tasksToday.map(t => "- " + t.name + " (" + t.category + ")").join("\n");
+            } else if (!holidayObj) {
+                msg += "No events.";
+            }
+
+            alert(msg);
+        });
+
+        grid.appendChild(cell);
+    }
+
+    console.log("Calendar loaded.");
+}
+
+document.querySelector('[data-section="calendar-section"]')
+    .addEventListener("click", async () => {
+        await loadHolidayAPI(calendarDate.getFullYear());
+        loadCalendar();
+    });
+
+document.getElementById("prev-month").addEventListener("click", async () => {
+    calendarDate.setMonth(calendarDate.getMonth() - 1);
+    await loadHolidayAPI(calendarDate.getFullYear());
+    loadCalendar();
+});
+
+document.getElementById("next-month").addEventListener("click", async () => {
+    calendarDate.setMonth(calendarDate.getMonth() + 1);
+    await loadHolidayAPI(calendarDate.getFullYear());
+    loadCalendar();
+});
