@@ -6,13 +6,14 @@ function loadTasks() {
         .then(res => res.json())
         .then(data => {
             const container = document.getElementById("task-list");
+            let t = document.getElementById("taskCategorySelect").value;
             container.innerHTML = "";
 
             data.forEach(task => {
                 container.innerHTML += `
                 <p> 
                     <strong>${task.name}</strong><br>
-                    Category: ${task.taskCategorySelect.value}<br>
+                    Category: ${t}<br>
                     Due: ${task.due_date}<br>
                     Status: ${task.is_done == 1 ? "✔ Done" : "⏳ Pending"}<br>
 
