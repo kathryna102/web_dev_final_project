@@ -1,5 +1,6 @@
 <?php 
-// Create
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 //establishes the database connection
 include "db.php";
 
@@ -7,12 +8,21 @@ include "db.php";
 $name = $_POST['name'];
 $category = $_POST['category'];
 $due_date = $_POST['due_date'];
+
+if(!$name || !$category || !$due_date) {
+    echo json_encode(["success" => false, "error" => "Missing fields"]);
+    exit;
+}
 // use SQL INSERT query to insert the new task into the database
 // - tasks will have a name (string), category (string), due date (YYYY-MM-DD)
 $stmt = $conn->prepare("INSERT INTO todos (name, category, due_date) VALUES (?, ?, ?)");
 $stmt -> bind_param("sss", $name, $category, $due_date);
-$stmt -> execute();
+if($stmt -> execute()) {
+    echo json_encode(["success" => true]);
+} else {
+    echo json_encode(["success" => false, "error" => $stmt->error]);
+}
 
-echo "OK";
+$stmt->close();
 
 ?>
