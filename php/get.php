@@ -15,13 +15,8 @@ while($row = $result->fetch_assoc()) {
 
 header('Content-Type: application/json');
 echo json_encode($tasks);
-/*} else {
-    http_response_code(500);
-    echo json_encode(['error' => $conn->error]);
-}
-*/
+
 // execute the query
 // fetch the results
-// close the connection
 
 ?>

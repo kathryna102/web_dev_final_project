@@ -15,7 +15,7 @@ if(!$name || !$category || !$due_date) {
 }
 // use SQL INSERT query to insert the new task into the database
 // - tasks will have a name (string), category (string), due date (YYYY-MM-DD)
-$stmt = $conn->prepare("INSERT INTO todos (name, category, due_date) VALUES (?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO todos (name, category, due_date, is_done) VALUES (?, ?, ?, 0)");
 $stmt -> bind_param("sss", $name, $category, $due_date);
 if($stmt -> execute()) {
     echo json_encode(["success" => true]);

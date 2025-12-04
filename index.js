@@ -12,7 +12,7 @@ function loadTasks() {
                 container.innerHTML += `
                 <p> 
                     <strong>${task.name}</strong><br>
-                    Category: ${task.category}<br>
+                    Category: ${task.taskCategorySelect.value}<br>
                     Due: ${task.due_date}<br>
                     Status: ${task.is_done == 1 ? "✔ Done" : "⏳ Pending"}<br>
 
@@ -31,7 +31,7 @@ document.getElementById("taskForm").addEventListener("add-task", function(e) {
 
     const data = new FormData();
     data.append("name", document.getElementById("name").value);
-    data.append("category", document.getElementById("category").value);
+    data.append("taskCategorySelect", document.getElementById("taskCategorySelect").value);
     data.append("due_date", document.getElementById("due_date").value);
 
     fetch("php/add.php", {
@@ -53,37 +53,6 @@ function deleteTask(id) {
     fetch(`php/delete.php?id=${id}`)
         .then(() => loadTasks());
 }
-
-/*function addTaskToDOM($task) {
-        //TODO: write this function to display the task to the DOM
-        const list = document.getElementById('task-list');
-        if(!list) return;
-
-        const li = document.createElement('li');
-        li.className = 'task-item';
-        li.dataset.id = task.id;
-
-        const text = document.createElement('span');
-        text.className = 'task-text';
-        const due = task.due_date ? ` — Due: ${task.due_date}` : '';
-        text.textContent = `${task.name}${due}`;
-       
-        const editBtn = document.createElement('button');
-        editBtn.className = 'edit-btn';
-        editBtn.textContent = 'Edit';
-        // add edit handler later
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete-btn';
-        deleteBtn.textContent = 'Delete';
-        // add delete handler later
-
-        li.appendChild(text);
-        li.appendChild(editBtn);
-        li.appendChild(deleteBtn);
-        list.appendChild(li);
-    }
-*/
 
 function getWeather() {
 

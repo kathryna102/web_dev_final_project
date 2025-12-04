@@ -6,10 +6,14 @@ $id = $_GET['id'];
 $done = $_GET['done'];
 //use SQL UPDATE query to update the task in the database
     //need to know what table (category) to update based on data 
-$stmt = $conn->prepare("UPDATE tasks SET is_done=? WHERE id=?");
+$stmt = $conn->prepare("UPDATE todos SET is_done=1 WHERE id=?");
 //bind parameters and execute the query
 $stmt->bind_param("ii", $done, $id);
-$stmt->execute();
+if($stmt -> execute()) {
+    echo json_encode(["success" => true]);
+} else {
+    echo json_encode(["success" => false, "error" => $stmt->error]);
+}
 
-echo "OK";
+$stmt->close();
 ?>  

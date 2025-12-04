@@ -8,10 +8,14 @@ include "db.php";
 //use prepared statements
 $id = $_GET['id'];
 
-$stmt = $conn->prepare("DELETE FROM tasks WHERE id=?");
+$stmt = $conn->prepare("DELETE FROM todos WHERE id=?");
 $stmt->bind_param("i", $id);
-$stmt->execute();
+if($stmt -> execute()) {
+    echo json_encode(["success" => true]);
+} else {
+    echo json_encode(["success" => false, "error" => $stmt->error]);
+}
 
-echo "OK";
+$stmt->close();
 
 ?>
