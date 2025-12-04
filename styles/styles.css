@@ -215,7 +215,6 @@ body {
 
 .weather-bar {
     width: fit-content;
-    margin-left: auto;           /* pushes it to the right */
     background-color: #f0f0f0;
     padding: 10px 15px;
     border-radius: 8px;
@@ -226,12 +225,12 @@ body {
 
 .weather-bar h2 {
     margin-bottom: 10px;
-    text-align: right;
+    text-align: left;
 }
 
 .weather-info {
-    display: flex;               /* put all items in one row */
-    gap: 10px;                   /* space between them */
+    display: flex;
+    gap: 10px;
 }
 
 .weather-item {
@@ -239,4 +238,94 @@ body {
     padding: 5px 10px;
     border-radius: 5px;
     text-align: center;
+}
+
+.nutrition-label {
+    width: 280px;
+    border: 2px solid black;
+    padding: 16px;
+    font-family: Arial, sans-serif;
+    background: white;
+    margin: 20px;
+}
+  
+.nutrition-label.hidden {
+    display: none;
+}
+  
+.nutrition-label h2 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    font-weight: bold;
+}
+  
+.label-box {
+    border-top: 8px solid black;
+    padding-top: 10px;
+}
+  
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #000;
+    padding: 4px 0;
+    font-size: 14px;
+}
+  
+.label-row.sub {
+    padding-left: 10px;
+    font-size: 13px;
+}
+  
+.quote-controls {
+    margin-bottom: 20px;
+}
+
+#categorySelect, #getQuotesBtn {
+    padding: 10px 14px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+#categorySelect {
+    margin-right: 10px;
+}
+
+#getQuotesBtn {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+#getQuotesBtn:hover {
+    background-color: #45a049;
+}
+
+.quotes-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.quote-card {
+    background: #ffffff;
+    padding: 18px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid #eaeaea;
+}
+
+.quote-text {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.quote-author {
+    text-align: right;
+    font-size: 15px;
+    color: #777;
 }

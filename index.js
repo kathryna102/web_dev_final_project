@@ -125,3 +125,120 @@ function getWeather() {
 }
 
 getWeather();
+
+const API_KEY = "6WJaz5oTGreibbiVzHUZbWh753LiEuB2sJ1ZUd7a";
+
+const NUTRIENT_IDS = {
+    calories: 1008,
+    totalFat: 1004,
+    saturatedFat: 1258,
+    cholesterol: 1253,
+    sodium: 1093,
+    totalCarbs: 1005,
+    fiber: 1079,
+    sugars: 2000,
+    protein: 1003
+};
+
+document.getElementById("search-nutrition").addEventListener("click", async () => {
+    const input = document.getElementById("nutrition-input").value.trim();
+    if (!input) {
+        alert("Enter a whole food name.");
+        return;
+    }
+    await searchFood(input);
+});
+
+async function searchFood(query) {
+    const url = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(query)}&dataType=Foundation,SR%20Legacy&pageSize=3&api_key=${API_KEY}`;
+    
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (!data.foods || data.foods.length === 0) {
+            document.getElementById("nutrition-results").innerHTML = "<p>No whole-food results found.</p>";
+            return;
+        }
+
+        displayTopThree(data.foods);
+
+        const firstFood = data.foods[0];
+        fillNutritionLabel(firstFood);
+
+    } catch (err) {
+        console.error("Fetch error:", err);
+    }
+}
+
+function displayTopThree(foods) {
+    let html = "<p><strong>Top 3 Results:</strong></p><ol>";
+    foods.forEach(food => {
+        html += `<li>${food.description}</li>`;
+    });
+    html += "</ol>";
+    document.getElementById("nutrition-results").innerHTML = html;
+}
+
+function extractNutrients(foodNutrients) {
+    const results = {};
+
+    for (const [key, id] of Object.entries(NUTRIENT_IDS)) {
+        const found = foodNutrients.find(n => n.nutrientId === id);
+        results[key] = found ? found.value : "—";
+    }
+    return results;
+}
+
+function fillNutritionLabel(food) {
+    const nutrients = extractNutrients(food.foodNutrients);
+
+    document.getElementById("food-name").textContent = food.description;
+    document.getElementById("calories").textContent = nutrients.calories;
+    document.getElementById("totalFat").textContent = nutrients.totalFat + " g";
+    document.getElementById("saturatedFat").textContent = nutrients.saturatedFat + " g";
+    document.getElementById("cholesterol").textContent = nutrients.cholesterol + " mg";
+    document.getElementById("sodium").textContent = nutrients.sodium + " mg";
+    document.getElementById("totalCarbs").textContent = nutrients.totalCarbs + " g";
+    document.getElementById("fiber").textContent = nutrients.fiber + " g";
+    document.getElementById("sugars").textContent = nutrients.sugars + " g";
+    document.getElementById("protein").textContent = nutrients.protein + " g";
+
+    document.getElementById("nutrition-label").classList.remove("hidden");
+}
+
+document.getElementById("getQuotesBtn").addEventListener("click", getQuotes);
+
+async function getQuotes() {
+    const category = document.getElementById("categorySelect").value;
+    if (!category) {
+      alert("Please choose a category!");
+      return;
+    }
+
+    const url = `https://quoteslate.vercel.app/api/quotes/random?tags=${encodeURIComponent(category)}&count=5`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      const container = document.getElementById("quotesContainer");
+      container.innerHTML = "";
+
+      data.forEach(q => {
+        const card = document.createElement("div");
+        card.className = "quote-card";
+        card.innerHTML = `
+          <p class="quote-text">"${q.quote}"</p>
+          <p class="quote-author">— ${q.author}</p>
+        `;
+        container.appendChild(card);
+      });
+
+    } catch (err) {
+      console.error("Error fetching quotes:", err);
+      document.getElementById("quotesContainer").innerText = "Could not load quotes. Try again.";
+    }
+  }
+
+  document.getElementById("getQuotesBtn").addEventListener("click", getQuotes);

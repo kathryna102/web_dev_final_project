@@ -8,20 +8,11 @@
 </head>
 
 <body>
-    <div id="header">
-
-        <div id="nav">
-            <img class="nav-element" id="checkMark" src="./images/checkmark-png-25953.png" alt="logo">
-            <span class="nav-element" id="calendar">View Calendar</span>
-            <span class="nav-element" id="new-task">Add New Task</span>
-        </div>
     
     <div id="nav">
         <img class="nav-element" id="checkMark" src="./images/checkmark-png-25953.png" alt="logo">
        
         <h1>Lifestyle Dashboard</h1>
-    </div>
-
     </div>
 
     <div class="container">
@@ -84,8 +75,21 @@
             </section>
 
             <section id="quote-section" class="section">
-                <h2>Motivational Quote</h2>
-                <p>Quote feature coming soon.</p>
+                <h2>Motivational Quotes</h2>
+
+                <select id="categorySelect">
+                <option value="">-- Select a Category --</option>
+                <option value="life">Life</option>
+                <option value="motivation">Motivation</option>
+                <option value="wisdom">Wisdom</option>
+                <option value="inspiration">Inspiration</option>
+                <option value="happiness">Happiness</option>
+                <option value="success">Success</option>
+                </select>
+
+                <button id="getQuotesBtn">Get Quotes</button>
+
+                <div id="quotesContainer" class="quotes-container"></div>
             </section>
 
             <section id="calendar-section" class="section">
@@ -102,8 +106,26 @@
                 </div>
 
                 <div id="nutrition-results" class="nutrition-results">
-                    <p>Nutrition information.</p>
+                    <p>Hint: some results may have specific classifications, e.g. "Banana raw", "Banana dehydrated"</p>
+                    <p>Nutrition Facts for the Top Result:</p>
                 </div>
+
+                <div id="nutrition-label" class="nutrition-label hidden">
+                    <h2 id="food-name"></h2>
+                  
+                <div class="label-box">
+                    <div class="label-row"><strong>Calories</strong> <span id="calories"></span></div>
+                    <div class="label-row">Total Fat <span id="totalFat"></span></div>
+                    <div class="label-row sub">Saturated Fat <span id="saturatedFat"></span></div>
+                    <div class="label-row">Cholesterol <span id="cholesterol"></span></div>
+                    <div class="label-row">Sodium <span id="sodium"></span></div>
+                    <div class="label-row">Total Carbohydrates <span id="totalCarbs"></span></div>
+                    <div class="label-row sub">Dietary Fiber <span id="fiber"></span></div>
+                    <div class="label-row sub">Sugars <span id="sugars"></span></div>
+                    <div class="label-row"><strong>Protein</strong> <span id="protein"></span></div>
+                    </div>
+                </div>
+                  
             </section>
 
         </div>
