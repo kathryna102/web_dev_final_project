@@ -4,7 +4,6 @@ ini_set('display_errors', 1);
 //establishes the database connection
 include "db.php";
 
-//prepare data for insertion by using SELECT and select all rows
 $name = $_POST['name'];
 if(isset($_POST['taskCategorySelect'])) {
     $category = $_POST['taskCategorySelect'];
