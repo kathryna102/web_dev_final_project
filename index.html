@@ -32,7 +32,7 @@
                 <h2>To-Do List</h2>
 
                 <div class="todo-input">
-                    <form id="taskForm" action="http://csci331vm.cs.montana.edu/~b44s676@student.montana.edu/web_dev_final_project/php/add.php" method="POST">
+                    <form id="taskForm" onsubmit="event.preventDefault();">
                         <input type="text" name="name" id="name" placeholder="Task name">
                         <select name="taskCategorySelect" id="taskCategorySelect">
                             <option value="">-- Select a Category --</option>
@@ -45,7 +45,7 @@
                             <option value="financial">Financial</option>
                         </select>
                         <input type="date" name="due_date" id="due_date" >
-                        <button id="add-task">Add</button>
+                        <button id="add-task" type="submit">Add</button>
                     </form>
                 </div>
 

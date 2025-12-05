@@ -1,4 +1,5 @@
 <?php 
+header('Content-Type: application/json');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 // establishses the database connection
@@ -13,7 +14,6 @@ while($row = $result->fetch_assoc()) {
     $tasks[] = $row;
 }
 
-header('Content-Type: application/json');
 echo json_encode($tasks);
 
 // execute the query

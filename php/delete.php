@@ -29,7 +29,7 @@ if ($id === null) {
     exit;
 }
 
-$id = intval($id);
+//$id = intval($id);
 
 $stmt = $conn->prepare("DELETE FROM todos WHERE id=?");
 $stmt->bind_param("i", $id);

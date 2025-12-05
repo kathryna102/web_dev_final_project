@@ -5,9 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("taskForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    const name = document.getElementById("name").value;
+    const name = document.getElementById("name").value.trim();
     const category = document.getElementById("taskCategorySelect").value;
     const due_date = document.getElementById("due_date").value;
+
+    if (!name || !category || !due_date) {
+            alert("Please fill out all fields.");
+            return;
+    }
 
     const data = new FormData();
     data.append("name", name);
@@ -58,16 +63,16 @@ function renderTask(task) {
             <input type="checkbox" class="task-checkbox"
                 data-id="${task.id}"
                 ${task.is_done == 1 ? "checked" : ""}>
-            <p> 
+            <div class="task-info"> 
                 <strong>${task.name}</strong><br>
                 Category: ${task.category}<br>
                 Due: ${task.due_date}<br>
                 Status: ${task.is_done == 1 ? "✔ Done" : "⏳ Pending"}<br>
 
-                <button onclick="toggleTask(${task.id}, ${task.is_done})">Toggle Status</button>
-                <button onclick="deleteTask(${task.id})" style="color:white;">Delete</button>
+                <button type="button" onclick="toggleTask(${task.id}, ${task.is_done})">Toggle Status</button>
+                <button type="button" onclick="deleteTask(${task.id})" style="color:white;">Delete</button>
 
-            </p>
+            </div>
             <hr>
         </div>
     `;
@@ -96,6 +101,23 @@ function toggleTask(id, is_done) {
         .then(result => {
             if(result.success) {
                 loadTasks();
+            }
+        });
+}
+
+function updateDoneStatus(id, is_done) {
+    const data = new FormData();
+    data.append("id", id);
+    data.append("is_done", is_done);
+
+    fetch("php/update_done.php", {
+        method: "POST",
+        body: data
+    })
+        .then(res => res.json())
+        .then(result => {
+            if (!result.success) {
+                console.error("Update error:", result.error);
             }
         });
 }
