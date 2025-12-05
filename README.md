@@ -3,8 +3,11 @@ Welcome to our CSCI 331 Final Website! Our idea was to create a lifestyle websit
 
 ## Features
 a menu panel including tabs for the todo-list, weather, motivational quotes, calandar, and nutrition
-  - todo list page shows all todos, user can add new ones, update them once finished and delete them when they aren't needed
+  - todo list page shows all todos, user can add new ones, update them once finished using the toggle status button and delete them when they   aren't needed
   - weather page shows weather in Bozeman that day
+  - calandar that shows what day it is today, when todo list items are due and holidays
+      - you can click on a certain day and it will show you a list of tasks for that day
+  - nutrition lookup with a search bar to search for any food. It will then pull up top three results and a nutrition label with calories,      total fat, cholesterol etc
 
 ## Setup 
 You need to be a MSU student in order to access this project
