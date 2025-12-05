@@ -1,4 +1,4 @@
-<? 
+<?php
 // Update
 include "db.php";
 //use the get.php file to get the data from the database
