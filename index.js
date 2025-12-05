@@ -114,9 +114,9 @@ function deleteTask(id) {
                 loadTasks();
             } else {
             console.error("Delete error:", result.error);
-            alert("Could not delete task.");
             }
-        });
+        })
+        .catch(err => console.error("Network/JSON error:", err));
 }
 
 //Weather API ------------------------------------------------------------
