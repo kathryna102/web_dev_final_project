@@ -1,9 +1,8 @@
 <?php
 // Delete
+header("Content-Type: application/json");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-header("Content-Type: application/json");
 
 include "db.php";
 //use the get.php file to get the data from the database

@@ -130,7 +130,12 @@ function deleteTask(id) {
         method: "POST",
         body: data
     })
-        .then(res => res.json())
+        //.then(res => res.json())
+        .then(async res => {
+        const text = await res.text();
+        console.log("RAW RESPONSE:", text);
+        return JSON.parse(text);
+    })
         .then(result => {
             if(result.success) {
                 loadTasks();
