@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$id = $_POST['id'];
+$id = $_POST['id'] ?? null;
 
 if ($id === null) {
     echo json_encode([
@@ -33,6 +33,7 @@ $id = intval($id);
 
 $stmt = $conn->prepare("DELETE FROM todos WHERE id=?");
 $stmt->bind_param("i", $id);
+
 if($stmt -> execute()) {
     echo json_encode(["success" => true]);
 } else {

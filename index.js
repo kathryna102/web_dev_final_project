@@ -1,4 +1,4 @@
-
+//Todo List -------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     loadTasks();
 
@@ -46,20 +46,6 @@ function loadTasks() {
                 }
 
                 container.innerHTML += renderTask(task);
-                /*`
-                <p> 
-                    <strong>${task.name}</strong><br>
-                    Category: ${task.category}<br>
-                    Due: ${task.due_date}<br>
-                    Status: ${task.is_done == 1 ? "✔ Done" : "⏳ Pending"}<br>
-
-                    <button onclick="toggleTask(${task.id}, ${task.is_done})">Toggle Status</button>
-                    <button onclick="deleteTask(${task.id})" style="color:white;">Delete</button>
-
-                </p>
-                <hr>
-                `;
-                */
             });
             attachCheckboxListeners();
         })
@@ -133,6 +119,8 @@ function deleteTask(id) {
         });
 }
 
+//Weather API ------------------------------------------------------------
+
 function getWeather() {
 
     const url = 'https://api.open-meteo.com/v1/forecast?latitude=45.676998&longitude=-111.042931&current_weather=true&temperature_unit=fahrenheit';
@@ -151,6 +139,8 @@ function getWeather() {
 }
 
 getWeather();
+
+//Nutrition API ------------------------------------------------------------
 
 const API_KEY = "6WJaz5oTGreibbiVzHUZbWh753LiEuB2sJ1ZUd7a";
 
@@ -235,6 +225,8 @@ function fillNutritionLabel(food) {
 
 document.getElementById("getQuotesBtn").addEventListener("click", getQuotes);
 
+//Quotes API ------------------------------------------------------------
+
 async function getQuotes() {
     const category = document.getElementById("categorySelect").value;
     if (!category) {
@@ -269,7 +261,7 @@ async function getQuotes() {
 
   document.getElementById("getQuotesBtn").addEventListener("click", getQuotes);
 
-  
+//Calendar API ------------------------------------------------------------
 let calendarDate = new Date();
 
 let API_HOLIDAYS = [];
