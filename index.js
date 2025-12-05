@@ -45,7 +45,8 @@ function loadTasks() {
                     return;
                 }
 
-                container.innerHTML += `
+                container.innerHTML += renderTask(task);
+                /*`
                 <p> 
                     <strong>${task.name}</strong><br>
                     Category: ${task.category}<br>
@@ -58,9 +59,38 @@ function loadTasks() {
                 </p>
                 <hr>
                 `;
+                */
             });
+            attachCheckboxListeners();
         })
         .catch(err => console.error("Error loading tasks:", err));
+}
+
+function renderTask(task) {
+    return `
+        <div class="task">
+            <input type="checkbox" class="task-checkbox"
+                data-id="${task.id}"
+                ${task.is_done == 1 ? "checked" : ""}>
+
+            <span class="task-name ${task.is_done == 1 ? "completed" : ""}">
+                ${task.name}
+            </span>
+
+            <span class="task-category">${task.category}</span>
+            <span class="task-date">${task.due_date}</span>
+        </div>
+    `;
+}
+
+function attachCheckboxListeners() {
+    document.querySelectorAll(".task-checkbox").forEach(checkbox => {
+        checkbox.addEventListener("change", () => {
+            const id = checkbox.dataset.id;
+            const is_done = checkbox.checked ? 1 : 0;
+            updateDoneStatus(id, is_done);
+        });
+    });
 }
 
 function toggleTask(id, is_done) {
