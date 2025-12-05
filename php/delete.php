@@ -1,12 +1,35 @@
 <? 
 // Delete
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+header("Content-Type: application/json");
+
 include "db.php";
 //use the get.php file to get the data from the database
 //use SQL DELETE query to delete the task in the database
 //execute the query
 //close the connection
 //use prepared statements
-$id = $_GET['id'];
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode([
+        "success" => false,
+        "error" => "Invalid request method"
+    ]);
+    exit;
+}
+
+$id = $_POST['id'];
+
+if ($id === null) {
+    echo json_encode([
+        "success" => false,
+        "error" => "Missing task ID"
+    ]);
+    exit;
+}
+
+$id = intval($id);
 
 $stmt = $conn->prepare("DELETE FROM todos WHERE id=?");
 $stmt->bind_param("i", $id);
@@ -17,5 +40,6 @@ if($stmt -> execute()) {
 }
 
 $stmt->close();
+$conn->close();
 
 ?>

@@ -126,6 +126,9 @@ function deleteTask(id) {
         .then(result => {
             if(result.success) {
                 loadTasks();
+            } else {
+            console.error("Delete error:", result.error);
+            alert("Could not delete task.");
             }
         });
 }
