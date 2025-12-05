@@ -1,5 +1,5 @@
 ## Overview
-Welcome to our CSCI 331 Final Website! Our idea was to create a lifestyle website that includes a todo-list implementing the CRUD operations of databases. The database is where to-do list items will be stored.  
+Welcome to our CSCI 331 Final Website! Our idea was to create a lifestyle website that includes a todo-list implementing the CRUD operations of databases. The database is where to-do list items will be stored. We have also used various API's to bring in weather, calandar, quote, and nutrition information.
 
 ## Features
 a menu panel including tabs for the todo-list, weather, motivational quotes, calandar, and nutrition
