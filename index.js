@@ -72,13 +72,17 @@ function renderTask(task) {
             <input type="checkbox" class="task-checkbox"
                 data-id="${task.id}"
                 ${task.is_done == 1 ? "checked" : ""}>
+            <p> 
+                <strong>${task.name}</strong><br>
+                Category: ${task.category}<br>
+                Due: ${task.due_date}<br>
+                Status: ${task.is_done == 1 ? "✔ Done" : "⏳ Pending"}<br>
 
-            <span class="task-name ${task.is_done == 1 ? "completed" : ""}">
-                ${task.name}
-            </span>
+                <button onclick="toggleTask(${task.id}, ${task.is_done})">Toggle Status</button>
+                <button onclick="deleteTask(${task.id})" style="color:white;">Delete</button>
 
-            <span class="task-category">${task.category}</span>
-            <span class="task-date">${task.due_date}</span>
+            </p>
+            <hr>
         </div>
     `;
 }
