@@ -1,19 +1,54 @@
 
-document.addEventListener('DOMContentLoaded', loadTasks);
+document.addEventListener('DOMContentLoaded', () => {
+    loadTasks();
+
+    document.getElementById("taskForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const category = document.getElementById("taskCategorySelect").value;
+    const due_date = document.getElementById("due_date").value;
+
+    const data = new FormData();
+    data.append("name", name);
+    data.append("category", category);
+    data.append("due_date", due_date);
+
+    const response = await fetch("php/add.php", {
+        method: 'POST',
+        body: data
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+        loadTasks();            // Reload tasks from DB
+        document.getElementById("taskForm").reset();  // Clear form
+    } else {
+        alert("Error adding task: " + result.error);
+    }
+    });
+});
     
 function loadTasks() {
     fetch("php/get.php")
         .then(res => res.json())
         .then(data => {
             const container = document.getElementById("task-list");
-            let t = document.getElementById("taskCategorySelect").value;
             container.innerHTML = "";
 
+            let selectedCategory = document.getElementById("taskCategorySelect")?.value || "";
+
             data.forEach(task => {
+
+                if(selectedCategory && task.category !== selectedCategory) {
+                    return;
+                }
+
                 container.innerHTML += `
                 <p> 
                     <strong>${task.name}</strong><br>
-                    Category: ${t}<br>
+                    Category: ${task.category}<br>
                     Due: ${task.due_date}<br>
                     Status: ${task.is_done == 1 ? "✔ Done" : "⏳ Pending"}<br>
 
@@ -24,35 +59,41 @@ function loadTasks() {
                 <hr>
                 `;
             });
+        })
+        .catch(err => console.error("Error loading tasks:", err));
+}
+
+function toggleTask(id, is_done) {
+    const data = new FormData();
+    data.append("id", id);
+    data.append("is_done", is_done == 1 ? 0 : 1);
+
+    fetch(`php/update_done.php`, {
+        method: "POST",
+        body: data
+    })
+        .then(res => res.json())
+        .then(result => {
+            if(result.success) {
+                loadTasks();
+            }
         });
 }
 
-document.getElementById("taskForm").addEventListener("add-task", function(e) {
-    e.preventDefault();
-
-    const data = new FormData();
-    data.append("name", document.getElementById("name").value);
-    data.append("taskCategorySelect", document.getElementById("taskCategorySelect").value);
-    data.append("due_date", document.getElementById("due_date").value);
-
-    fetch("php/add.php", {
-        method: 'POST',
-        body: data
-    }).then(() => {
-        loadTasks();
-        document.getElementById("taskForm").reset();
-    });
-});
-
-
-function toggleTask(id, current) {
-    fetch(`php/update.php?id=${id}&done=${current == 1 ? 0 : 1}`)
-        .then(() => loadTasks());
-}
-
 function deleteTask(id) {
-    fetch(`php/delete.php?id=${id}`)
-        .then(() => loadTasks());
+    const data = new FormData();
+    data.append("id", id);
+
+    fetch(`php/delete.php`, {
+        method: "POST",
+        body: data
+    })
+        .then(res => res.json())
+        .then(result => {
+            if(result.success) {
+                loadTasks();
+            }
+        });
 }
 
 function getWeather() {
