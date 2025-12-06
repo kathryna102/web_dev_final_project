@@ -277,59 +277,7 @@ body {
     padding-left: 10px;
     font-size: 13px;
 }
-  
-.quote-controls {
-    margin-bottom: 20px;
-}
 
-#categorySelect, #getQuotesBtn {
-    padding: 10px 14px;
-    font-size: 15px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-}
-
-#categorySelect {
-    margin-right: 10px;
-}
-
-#getQuotesBtn {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
-
-#getQuotesBtn:hover {
-    background-color: #45a049;
-}
-
-.quotes-container {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.quote-card {
-    background: #ffffff;
-    padding: 18px 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    border: 1px solid #eaeaea;
-}
-
-.quote-text {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 8px;
-    color: #333;
-}
-
-.quote-author {
-    text-align: right;
-    font-size: 15px;
-    color: #777;
-}
 
 #calendar {
     width: 750px;                 

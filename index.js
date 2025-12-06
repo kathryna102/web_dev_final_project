@@ -250,44 +250,6 @@ function fillNutritionLabel(food) {
     document.getElementById("nutrition-label").classList.remove("hidden");
 }
 
-document.getElementById("getQuotesBtn").addEventListener("click", getQuotes);
-
-//Quotes API ------------------------------------------------------------
-
-async function getQuotes() {
-    const category = document.getElementById("categorySelect").value;
-    if (!category) {
-      alert("Please choose a category!");
-      return;
-    }
-
-    const url = `https://quoteslate.vercel.app/api/quotes/random?tags=${encodeURIComponent(category)}&count=5`;
-
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-
-      const container = document.getElementById("quotesContainer");
-      container.innerHTML = "";
-
-      data.forEach(q => {
-        const card = document.createElement("div");
-        card.className = "quote-card";
-        card.innerHTML = `
-          <p class="quote-text">"${q.quote}"</p>
-          <p class="quote-author">— ${q.author}</p>
-        `;
-        container.appendChild(card);
-      });
-
-    } catch (err) {
-      console.error("Error fetching quotes:", err);
-      document.getElementById("quotesContainer").innerText = "Could not load quotes. Try again.";
-    }
-  }
-
-  document.getElementById("getQuotesBtn").addEventListener("click", getQuotes);
-
 //Calendar API ------------------------------------------------------------
 let calendarDate = new Date();
 

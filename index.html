@@ -21,7 +21,6 @@
 
             <button class="menu-btn" data-section="todo-section">To-Do List</button>
             <button class="menu-btn" data-section="weather-section">Weather</button>
-            <button class="menu-btn" data-section="quote-section">Motivational Quotes</button>
             <button class="menu-btn" data-section="calendar-section">Calendar</button>
             <button class="menu-btn" data-section="nutrition-section">Nutrition</button>
         </div>
@@ -55,15 +54,7 @@
             </section>
 
             <section id="weather-section" class="section">
-                <h2>Weather Overview</h2>
-
-                <div class="weather-search">
-                    <input type="text" id="weather-city" placeholder="Enter a city.">
-                    <button id="weather-btn">Get Weather</button>
-                </div>
-
-                <div id="weather-result" class="weather-card">
-                    <p>Enter a city to view weather data.</p>
+                <h2>Weather Overview For Your Current Location</h2>
 
                     <div class="weather-bar">
                         <h2>Bozeman, MT</h2>
@@ -75,24 +66,6 @@
                     </div>
 
                 </div>
-            </section>
-
-            <section id="quote-section" class="section">
-                <h2>Motivational Quotes</h2>
-
-                <select id="categorySelect">
-                <option value="">-- Select a Category --</option>
-                <option value="life">Life</option>
-                <option value="motivation">Motivation</option>
-                <option value="wisdom">Wisdom</option>
-                <option value="inspiration">Inspiration</option>
-                <option value="happiness">Happiness</option>
-                <option value="success">Success</option>
-                </select>
-
-                <button id="getQuotesBtn">Get Quotes</button>
-
-                <div id="quotesContainer" class="quotes-container"></div>
             </section>
 
             <section id="calendar-section" class="section">
